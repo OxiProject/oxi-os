@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/logo.png" width="180">
+  <img src="branding/logo.png" width="180">
 </p>
 
 <h1 align="center">OxiOS</h1>
