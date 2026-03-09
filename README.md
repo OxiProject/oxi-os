@@ -11,7 +11,7 @@ A modern Linux distribution focused on simplicity, performance and reliability.
 
 <p align="center">
   <img src="https://img.shields.io/badge/base-Debian-blue">
-  <img src="https://img.shields.io/badge/desktop-LXQt-orange">
+  <img src="https://img.shields.io/badge/desktop-GNOME-orange">
   <img src="https://img.shields.io/badge/status-Development-yellow">
   <img src="https://img.shields.io/badge/license-GPL--3.0-green">
 </p>
@@ -20,48 +20,49 @@ A modern Linux distribution focused on simplicity, performance and reliability.
 
 # About
 
-**OxiOS** is a lightweight and stable Linux distribution built on top of **Debian**.
-The goal of the project is to provide a **clean, fast and easy-to-use operating system** with modern tools and a minimal system design.
+**OxiOS** is a modern Linux distribution built on top of **Debian**.
 
-OxiOS focuses on simplicity while maintaining flexibility for both new users and experienced Linux users.
+The goal of the project is to create a **simple, stable and powerful operating system** with a clean desktop experience and powerful built-in tools.
+
+OxiOS focuses on performance, usability and system simplicity while maintaining the reliability of Debian.
 
 ---
 
 # Key Features
 
 * ⚡ Minimal and optimized base system
-* 🧠 Simple and clean desktop environment
+* 🧠 Modern GNOME desktop experience
 * 🎮 Built-in gaming support tools
 * 🔧 Easy driver installation
-* 📦 Graphical package management
-* 🚀 Fast boot and low system usage
+* 📦 Simple graphical package management
+* 🚀 Fast and stable system
 
 ---
 
 # Desktop Environment
 
-OxiOS uses **LXQt** as its main desktop environment.
+OxiOS uses **GNOME** as its main desktop environment.
 
-Why LXQt?
+Why GNOME?
 
-* Lightweight
-* Fast performance
-* Clean interface
-* Highly customizable
+* Modern and polished interface
+* Wayland support
+* Large ecosystem of applications
+* Excellent stability
 
 ---
 
 # Core Components
 
-OxiOS introduces several custom system tools designed to simplify system management.
+OxiOS introduces several custom tools designed to simplify system management.
 
 ### Oxi Package Manager
 
-A graphical package manager that allows users to install, remove and manage applications easily.
+A graphical package manager for installing and managing applications.
 
 ### Oxi Driver Manager
 
-Detects and installs hardware drivers automatically.
+Automatically detects and installs hardware drivers.
 
 ### Oxi Updater
 
@@ -75,12 +76,12 @@ Helps users install and configure gaming platforms such as Steam and Proton.
 
 # System Philosophy
 
-OxiOS is built around four main principles:
+OxiOS is built around four core principles:
 
 * **Fast** – optimized system performance
 * **Minimal** – no unnecessary background services
-* **Stable** – Debian-based reliability
-* **Simple** – easy to use for everyone
+* **Stable** – Debian based reliability
+* **Simple** – easy to use system tools
 
 ---
 
@@ -92,7 +93,7 @@ Planned system architecture:
 OxiOS
 │
 ├── Debian Base System
-├── LXQt Desktop
+├── GNOME Desktop
 ├── Oxi Tools
 │   ├── Oxi Package Manager
 │   ├── Oxi Driver Manager
@@ -108,8 +109,8 @@ OxiOS
 ### Phase 1 – Core System
 
 * Debian base integration
-* LXQt desktop
-* Initial system configuration
+* GNOME desktop environment
+* Minimal system configuration
 
 ### Phase 2 – System Tools
 
@@ -126,7 +127,7 @@ OxiOS
 ### Phase 4 – Gaming Support
 
 * Game Manager
-* Proton configuration
+* Steam & Proton integration
 * Gaming optimizations
 
 ---
@@ -149,9 +150,7 @@ oxi-os
 
 # Contributing
 
-Contributions are welcome!
-
-If you want to help improve OxiOS:
+Contributions are welcome.
 
 1. Fork the repository
 2. Create a new branch
@@ -163,15 +162,6 @@ If you want to help improve OxiOS:
 # License
 
 OxiOS is released under the **GPL-3.0 License**.
-
----
-
-# Future Goals
-
-* Fast and stable desktop Linux experience
-* Easy system management tools
-* Better gaming support
-* Clean and modern user interface
 
 ---
 
