@@ -28,6 +28,7 @@ set_os_release_value HOME_URL '"https://github.com/oxi-os/oxi-os"'
 set_os_release_value SUPPORT_URL '"https://github.com/oxi-os/oxi-os"'
 set_os_release_value BUG_REPORT_URL '"https://github.com/oxi-os/oxi-os/issues"'
 set_os_release_value LOGO oxios
+set_os_release_value ANSI_COLOR '"0;36"'
 
 cat > /etc/lsb-release <<'EOF'
 DISTRIB_ID=OxiOS

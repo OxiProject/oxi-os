@@ -1,0 +1,45 @@
+#!/bin/bash
+set -e
+
+hide_desktop_entry() {
+  local file="$1"
+
+  if [ -f "$file" ]; then
+    if grep -q '^NoDisplay=' "$file"; then
+      sed -i 's/^NoDisplay=.*/NoDisplay=true/' "$file"
+    else
+      echo 'NoDisplay=true' >> "$file"
+    fi
+
+    if grep -q '^Hidden=' "$file"; then
+      sed -i 's/^Hidden=.*/Hidden=true/' "$file"
+    else
+      echo 'Hidden=true' >> "$file"
+    fi
+  fi
+}
+
+for entry in \
+  /usr/share/applications/calamares.desktop \
+  /usr/share/applications/install-debian.desktop \
+  /usr/share/applications/org.kde.calamares.desktop \
+  /usr/share/applications/org.kde.systemsettings.desktop \
+  /usr/share/applications/systemsettings.desktop \
+  /usr/share/applications/nm-connection-editor.desktop
+do
+  hide_desktop_entry "$entry"
+done
+
+mkdir -p /usr/share/icons/hicolor/256x256/apps /usr/share/pixmaps
+
+if [ -f /usr/share/pixmaps/oxios-logo.png ]; then
+  cp -f /usr/share/pixmaps/oxios-logo.png /usr/share/icons/hicolor/256x256/apps/oxios.png
+  cp -f /usr/share/pixmaps/oxios-logo.png /usr/share/icons/hicolor/256x256/apps/oxios-logo.png
+  cp -f /usr/share/pixmaps/oxios-logo.png /usr/share/icons/hicolor/256x256/apps/distributor-logo.png
+  cp -f /usr/share/pixmaps/oxios-logo.png /usr/share/icons/hicolor/256x256/apps/debian-logo.png
+  cp -f /usr/share/pixmaps/oxios-logo.png /usr/share/pixmaps/debian-logo.png
+fi
+
+if command -v gtk-update-icon-cache >/dev/null 2>&1; then
+  gtk-update-icon-cache -f -t /usr/share/icons/hicolor || true
+fi

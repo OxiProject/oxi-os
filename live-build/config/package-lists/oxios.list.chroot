@@ -7,7 +7,6 @@ curl
 wget
 ca-certificates
 network-manager
-network-manager-gnome
 wireless-regdb
 wpasupplicant
 gnome-shell
@@ -19,8 +18,10 @@ gdm3
 gnome-software
 gnome-text-editor
 gnome-calculator
+gnome-music
 gnome-system-monitor
 gnome-disk-utility
+totem
 pipewire
 wireplumber
 pipewire-audio

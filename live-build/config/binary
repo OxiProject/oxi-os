@@ -23,16 +23,13 @@ LB_BOOTAPPEND_INSTALL=""
 LB_BOOTAPPEND_LIVE_FAILSAFE="boot=live components memtest noapic noapm nodma nomce nosmp nosplash vga=788"
 
 # Set BIOS bootloader
-LB_BOOTLOADER_BIOS="grub2"
+LB_BOOTLOADER_BIOS="syslinux"
 
 # Set EFI bootloader
 LB_BOOTLOADER_EFI="grub-efi"
 
 # Set bootloaders
 LB_BOOTLOADERS=""
-
-# Older live-build uses this single bootloader value for ISO generation.
-LB_BOOTLOADER="grub2"
 
 # Set checksums
 LB_CHECKSUMS="sha256"
@@ -57,7 +54,7 @@ LB_ZSYNC="false"
 LB_BUILD_WITH_CHROOT="true"
 
 # Set debian-installer
-LB_DEBIAN_INSTALLER="false"
+LB_DEBIAN_INSTALLER="none"
 
 # Set debian-installer suite
 LB_DEBIAN_INSTALLER_DISTRIBUTION="trixie"
