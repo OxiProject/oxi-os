@@ -1,0 +1,3 @@
+*.hook.chroot text eol=lf
+*.conf text eol=lf
+*.list.chroot text eol=lf

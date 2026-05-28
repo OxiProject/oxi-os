@@ -17,9 +17,17 @@ gnome-terminal
 nautilus
 gdm3
 gnome-software
+gnome-text-editor
+gnome-calculator
+gnome-system-monitor
+gnome-disk-utility
 pipewire
 wireplumber
 pipewire-audio
 pipewire-pulse
 flatpak
 os-prober
+libreoffice
+libreoffice-gtk3
+calamares
+xfsprogs

@@ -1,0 +1,24 @@
+---
+componentName: oxios
+strings:
+  productName: OxiOS
+  shortProductName: OxiOS
+  version: development
+  shortVersion: dev
+  versionedName: OxiOS
+  shortVersionedName: OxiOS
+  bootloaderEntryName: OxiOS
+  productUrl: https://github.com/oxi-os/oxi-os
+  supportUrl: https://github.com/oxi-os/oxi-os
+  knownIssuesUrl: https://github.com/oxi-os/oxi-os/issues
+  releaseNotesUrl: https://github.com/oxi-os/oxi-os
+images:
+  productLogo: logo.png
+  productIcon: logo.png
+  productWelcome: logo.png
+style:
+  sidebarBackground: "#101820"
+  sidebarText: "#ffffff"
+  sidebarTextSelect: "#ffffff"
+  sidebarTextHighlight: "#18a999"
+  sidebarSelect: "#18a999"

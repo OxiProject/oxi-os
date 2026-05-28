@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Install OxiOS
+Comment=Install OxiOS to disk
+Exec=pkexec calamares
+Icon=oxios
+Terminal=false
+StartupNotify=true
+Categories=System;

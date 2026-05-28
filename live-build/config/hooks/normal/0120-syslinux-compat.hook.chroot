@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+mkdir -p /usr/lib/syslinux
+
+if [ -e /usr/lib/ISOLINUX/isolinux.bin ]; then
+  ln -sf /usr/lib/ISOLINUX/isolinux.bin /usr/lib/syslinux/isolinux.bin
+fi
+
+if [ -e /usr/lib/syslinux/modules/bios/vesamenu.c32 ]; then
+  ln -sf /usr/lib/syslinux/modules/bios/vesamenu.c32 /usr/lib/syslinux/vesamenu.c32
+fi

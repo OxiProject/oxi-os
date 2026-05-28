@@ -25,7 +25,11 @@ LB_LINUX_FLAVOURS_WITH_ARCH="amd64"
 LB_LINUX_PACKAGES="linux-image"
 
 # Enable security updates
-LB_SECURITY="true"
+#
+# Ubuntu 24.04 ships an older live-build that still generates the legacy
+# trixie/updates security suite for Debian 13. Keep this off until the build
+# host uses a live-build release that knows trixie-security.
+LB_SECURITY="false"
 
 # Enable updates updates
 LB_UPDATES="true"

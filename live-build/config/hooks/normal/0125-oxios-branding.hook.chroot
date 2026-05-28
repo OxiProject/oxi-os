@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+
+set_os_release_value() {
+  local key="$1"
+  local value="$2"
+
+  if grep -q "^${key}=" /etc/os-release; then
+    sed -i "s|^${key}=.*|${key}=${value}|" /etc/os-release
+  else
+    echo "${key}=${value}" >> /etc/os-release
+  fi
+
+  if [ -f /usr/lib/os-release ]; then
+    if grep -q "^${key}=" /usr/lib/os-release; then
+      sed -i "s|^${key}=.*|${key}=${value}|" /usr/lib/os-release
+    else
+      echo "${key}=${value}" >> /usr/lib/os-release
+    fi
+  fi
+}
+
+set_os_release_value NAME '"OxiOS"'
+set_os_release_value PRETTY_NAME '"OxiOS"'
+set_os_release_value ID oxios
+set_os_release_value ID_LIKE debian
+set_os_release_value HOME_URL '"https://github.com/oxi-os/oxi-os"'
+set_os_release_value SUPPORT_URL '"https://github.com/oxi-os/oxi-os"'
+set_os_release_value BUG_REPORT_URL '"https://github.com/oxi-os/oxi-os/issues"'
+set_os_release_value LOGO oxios
+
+cat > /etc/lsb-release <<'EOF'
+DISTRIB_ID=OxiOS
+DISTRIB_RELEASE=development
+DISTRIB_CODENAME=trixie
+DISTRIB_DESCRIPTION="OxiOS"
+EOF
