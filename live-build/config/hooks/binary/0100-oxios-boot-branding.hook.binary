@@ -1,0 +1,48 @@
+#!/bin/sh
+set -e
+
+replace_branding() {
+  file="$1"
+
+  [ -f "$file" ] || return 0
+
+  sed -i \
+    -e 's/Debian Live/Oxi OS Live/g' \
+    -e 's/Debian GNU\/Linux/Oxi OS/g' \
+    -e 's/Debian/Oxi OS/g' \
+    -e 's/debian/Oxi OS/g' \
+    "$file"
+}
+
+for file in \
+  binary/isolinux/*.cfg \
+  binary/boot/grub/*.cfg \
+  binary/EFI/boot/*.cfg
+do
+  replace_branding "$file"
+done
+
+if [ -f binary/isolinux/menu.cfg ]; then
+  sed -i \
+    -e '1i MENU TITLE Oxi OS' \
+    -e '/^MENU BACKGROUND/d' \
+    -e '/^MENU COLOR screen/d' \
+    -e '/^MENU COLOR border/d' \
+    -e '/^MENU COLOR title/d' \
+    -e '/^MENU COLOR sel/d' \
+    -e '/^MENU COLOR unsel/d' \
+    -e '$a MENU COLOR screen 0 #ffffffff #00000000 std' \
+    -e '$a MENU COLOR border 0 #ff000000 #00000000 std' \
+    -e '$a MENU COLOR title 0 #ffffffff #00000000 std' \
+    -e '$a MENU COLOR sel 0 #ff000000 #ffffffff std' \
+    -e '$a MENU COLOR unsel 0 #ffffffff #00000000 std' \
+    binary/isolinux/menu.cfg
+fi
+
+if [ -f binary/boot/grub/grub.cfg ]; then
+  sed -i \
+    -e '1i set menu_color_normal=white/black' \
+    -e '1i set menu_color_highlight=black/white' \
+    -e '1i set color_normal=white/black' \
+    binary/boot/grub/grub.cfg
+fi

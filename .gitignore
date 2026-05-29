@@ -1,7 +1,7 @@
 *.iso
 *.img
 *.squashfs
-chroot/
-binary/
-build/
-cache/
+/chroot/
+/binary/
+/build/
+/cache/
