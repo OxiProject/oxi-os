@@ -18,10 +18,8 @@ gdm3
 gnome-software
 gnome-text-editor
 gnome-calculator
-gnome-music
 gnome-system-monitor
 gnome-disk-utility
-totem
 pipewire
 wireplumber
 pipewire-audio
@@ -32,3 +30,13 @@ libreoffice
 libreoffice-gtk3
 calamares
 xfsprogs
+plymouth
+plymouth-themes
+linux-image-amd64
+linux-headers-amd64
+firmware-linux
+firmware-linux-free
+firmware-linux-nonfree
+nvidia-detect
+nvidia-installer-cleanup
+imagemagick

@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+echo "Configuring APT sources with backports..."
+
+cat > /etc/apt/sources.list <<'EOF'
+deb http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware
+deb http://security.debian.org/debian-security trixie-security main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
+deb http://deb.debian.org/debian/ trixie-backports main contrib non-free non-free-firmware
+EOF
+
+cat > /etc/apt/preferences.d/backports <<'EOF'
+Package: linux-image-* linux-headers-* nvidia-* firmware-*
+Pin: release a=trixie-backports
+Pin-Priority: 500
+EOF
+
+apt-get update
+
+echo "APT sources configured with backports"

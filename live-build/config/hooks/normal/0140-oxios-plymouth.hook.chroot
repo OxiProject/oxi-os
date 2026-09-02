@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e
+
+THEME_DIR="/usr/share/plymouth/themes/oxios"
+LOGO_SOURCE="/usr/share/pixmaps/oxios-logo.png"
+
+mkdir -p "$THEME_DIR"
+
+if [ -f "$LOGO_SOURCE" ]; then
+    cp -f "$LOGO_SOURCE" "$THEME_DIR/logo.png"
+    
+    if command -v convert >/dev/null 2>&1; then
+        convert "$LOGO_SOURCE" -resize 256x256 "$THEME_DIR/logo.png" 2>/dev/null || true
+    fi
+fi
+
+if command -v convert >/dev/null 2>&1; then
+    convert -size 300x20 xc:"#1a1a1a" -fill "#333333" -draw "rectangle 0,0 300,20" "$THEME_DIR/progress_box.png" 2>/dev/null || true
+    convert -size 296x16 xc:"#18a999" "$THEME_DIR/progress_bar.png" 2>/dev/null || true
+fi
+
+plymouth-set-default-theme -R oxios 2>/dev/null || true
+
+update-initramfs -u 2>/dev/null || true
+
+echo "OxiOS Plymouth theme configured"

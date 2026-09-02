@@ -16,6 +16,7 @@ images:
   productLogo: logo.png
   productIcon: logo.png
   productWelcome: logo.png
+  productInstaller: logo.png
 style:
   sidebarBackground: "#000000"
   sidebarText: "#ffffff"

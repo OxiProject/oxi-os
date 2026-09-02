@@ -1,0 +1,58 @@
+# OxiOS Plymouth Theme Script
+# Custom boot animation with logo
+
+wallpaper_color = 0x000000;
+
+logo = Image("logo.png");
+logo_width = logo.GetWidth();
+logo_height = logo.GetHeight();
+
+window_width = Window.GetWidth();
+window_height = Window.GetHeight();
+
+logo_x = (window_width - logo_width) / 2;
+logo_y = (window_height - logo_height) / 2 - 50;
+
+logo_sprite = Sprite();
+logo_sprite.SetPosition(logo_x, logo_y, 1000);
+logo_sprite.SetImage(logo);
+
+progress_box = Image("progress_box.png");
+progress_bar = Image("progress_bar.png");
+
+box_width = progress_box.GetWidth();
+box_height = progress_box.GetHeight();
+
+box_x = (window_width - box_width) / 2;
+box_y = logo_y + logo_height + 30;
+
+box_sprite = Sprite();
+box_sprite.SetPosition(box_x, box_y, 1000);
+box_sprite.SetImage(progress_box);
+
+bar_sprite = Sprite();
+bar_sprite.SetPosition(box_x + 2, box_y + 2, 1001);
+bar_sprite.SetImage(progress_bar);
+
+original_bar_width = progress_bar.GetWidth();
+
+fun refresh_callback (progress) {
+    if (progress_box && progress_bar) {
+        bar_width = original_bar_width * progress;
+        if (bar_width > original_bar_width) {
+            bar_width = original_bar_width;
+        }
+        bar_sprite.SetImage(progress_bar.Scale(bar_width, progress_bar.GetHeight()));
+    }
+}
+
+progress_callback(0);
+
+fun message_callback (text) {
+}
+
+fun quit_callback () {
+    logo_sprite.SetOpacity(0);
+    box_sprite.SetOpacity(0);
+    bar_sprite.SetOpacity(0);
+}

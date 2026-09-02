@@ -1,0 +1,6 @@
+---
+name: nvidia-driver
+description: "NVIDIA proprietary driver installation"
+module: nvidia-driver
+required: false
+priority: high

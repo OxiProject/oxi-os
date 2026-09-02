@@ -1,0 +1,35 @@
+#!/bin/bash
+set -e
+
+echo "Running OxiOS post-install configuration..."
+
+detect_nvidia() {
+    lspci -nn | grep -i nvidia | grep -E '(VGA|3D controller|Display controller)' >/dev/null 2>&1
+}
+
+install_nvidia_drivers() {
+    echo "NVIDIA GPU detected, installing proprietary drivers..."
+    
+    apt-get update
+    
+    apt-get install -y -t trixie-backports \
+        nvidia-driver \
+        nvidia-kernel-dkms \
+        nvidia-settings \
+        nvidia-xconfig \
+        firmware-misc-nonfree 2>/dev/null || true
+    
+    nvidia-xconfig --enable-all-gpus 2>/dev/null || true
+    
+    update-initramfs -u
+    
+    echo "NVIDIA drivers installed successfully"
+}
+
+if detect_nvidia; then
+    install_nvidia_drivers
+else
+    echo "No NVIDIA GPU detected, skipping proprietary driver installation"
+fi
+
+echo "OxiOS post-install configuration complete"

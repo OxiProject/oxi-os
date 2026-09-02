@@ -46,3 +46,68 @@ if [ -f binary/boot/grub/grub.cfg ]; then
     -e '1i set color_normal=white/black' \
     binary/boot/grub/grub.cfg
 fi
+
+if [ -f binary/boot/grub/grub.cfg ]; then
+  cat >> binary/boot/grub/grub.cfg <<'EOF'
+
+# OxiOS Live GRUB Theme
+set theme=/boot/grub/themes/oxios/theme.txt
+export theme
+EOF
+
+  mkdir -p binary/boot/grub/themes/oxios
+  if [ -f /usr/share/pixmaps/oxios-logo.png ]; then
+    cp /usr/share/pixmaps/oxios-logo.png binary/boot/grub/themes/oxios/logo.png 2>/dev/null || true
+  fi
+  
+  cat > binary/boot/grub/themes/oxios/theme.txt <<'EOF'
+# OxiOS Live GRUB Theme
+
+title-text: "Oxi OS Live"
+title-font: "DejaVu Sans Bold 16"
+title-color: "#ffffff"
+title-align: "center"
+
+desktop-image: "logo.png"
+desktop-color: "#000000"
+
+terminal-box: "terminal_box_*.png"
+terminal-font: "DejaVu Sans Mono 10"
+terminal-border: 10
+terminal-left: 10%
+terminal-top: 35%
+terminal-width: 80%
+terminal-height: 40%
+
++ boot_menu {
+    left = 10%
+    top = 35%
+    width = 80%
+    height = 40%
+    item_font = "DejaVu Sans 12"
+    item_color = "#ffffff"
+    selected_item_color = "#18a999"
+    item_height = 24
+    item_padding = 10
+    item_spacing = 4
+    scrollbar = true
+    scrollbar_width = 8
+    scrollbar_color = "#333333"
+    scrollbar_thumb_color = "#18a999"
+}
+
++ progress_bar {
+    id = "__timeout__"
+    left = 10%
+    top = 85%
+    width = 80%
+    height = 8
+    bg_color = "#333333"
+    fg_color = "#18a999"
+    border_color = "#000000"
+    text = "@TIMEOUT_NOTIFICATION_LONG@"
+    font = "DejaVu Sans 10"
+    text_color = "#ffffff"
+}
+EOF
+fi
