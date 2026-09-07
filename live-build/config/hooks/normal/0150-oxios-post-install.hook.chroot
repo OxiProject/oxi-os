@@ -3,6 +3,9 @@ set -e
 
 echo "Running OxiOS post-install configuration..."
 
+# Install pciutils for lspci
+apt-get update && apt-get install -y pciutils
+
 detect_nvidia() {
     lspci -nn | grep -i nvidia | grep -E '(VGA|3D controller|Display controller)' >/dev/null 2>&1
 }
