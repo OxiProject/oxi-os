@@ -1,6 +1,0 @@
----
-name: backports-kernel
-description: "Install kernel from Debian backports"
-module: backports-kernel
-required: true
-priority: high

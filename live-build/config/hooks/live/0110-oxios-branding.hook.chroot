@@ -33,6 +33,6 @@ set_os_release_value ANSI_COLOR '"0;36"'
 cat > /etc/lsb-release <<'EOF'
 DISTRIB_ID="Oxi OS"
 DISTRIB_RELEASE=development
-DISTRIB_CODENAME=trixie
+DISTRIB_CODENAME=sid
 DISTRIB_DESCRIPTION="Oxi OS"
 EOF

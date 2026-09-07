@@ -48,7 +48,7 @@ def install_nvidia_drivers(target_root):
         )
         
         subprocess.run(
-            ['chroot', target_root, 'apt-get', 'install', '-y', '-t', 'trixie-backports',
+            ['chroot', target_root, 'apt-get', 'install', '-y',
              'nvidia-driver', 'nvidia-kernel-dkms', 'nvidia-settings', 'nvidia-xconfig'],
             check=True,
             env=env,

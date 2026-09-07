@@ -37,6 +37,4 @@ linux-headers-amd64
 firmware-linux
 firmware-linux-free
 firmware-linux-nonfree
-nvidia-detect
-nvidia-installer-cleanup
 imagemagick

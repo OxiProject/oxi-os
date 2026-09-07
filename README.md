@@ -10,7 +10,7 @@ A modern Linux distribution focused on simplicity, performance and reliability.
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/base-Debian-blue">
+  <img src="https://img.shields.io/badge/base-Debian%20Sid-blue">
   <img src="https://img.shields.io/badge/desktop-GNOME-orange">
   <img src="https://img.shields.io/badge/status-Development-yellow">
   <img src="https://img.shields.io/badge/license-GPL--3.0-green">

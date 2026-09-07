@@ -12,7 +12,7 @@ install_nvidia_drivers() {
     
     apt-get update
     
-    apt-get install -y -t trixie-backports \
+    apt-get install -y \
         nvidia-driver \
         nvidia-kernel-dkms \
         nvidia-settings \

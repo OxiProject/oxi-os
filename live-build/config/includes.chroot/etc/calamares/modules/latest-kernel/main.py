@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# Backports Kernel Module for Calamares
-# Installs the latest kernel from Debian backports
+# Latest Kernel Module for Calamares
+# Installs the latest kernel from Debian Sid
 
 import subprocess
 import os
 
 def run():
     """Main entry point for Calamares module."""
-    print("Backports Kernel Module started")
+    print("Latest Kernel Module started")
     
     target_root = os.environ.get('TARGET_ROOT', '/target')
     
@@ -28,7 +28,7 @@ def run():
         )
         
         subprocess.run(
-            ['chroot', target_root, 'apt-get', 'install', '-y', '-t', 'trixie-backports',
+            ['chroot', target_root, 'apt-get', 'install', '-y',
              'linux-image-amd64', 'linux-headers-amd64'],
             check=True,
             env=env,
@@ -47,13 +47,13 @@ def run():
             env=env
         )
         
-        print("Backports kernel installed successfully")
+        print("Latest kernel installed successfully")
         return 0
     except subprocess.CalledProcessError as e:
-        print(f"Failed to install backports kernel: {e}")
+        print(f"Failed to install latest kernel: {e}")
         return 1
     except Exception as e:
-        print(f"Error installing backports kernel: {e}")
+        print(f"Error installing latest kernel: {e}")
         return 1
 
 if __name__ == "__main__":
