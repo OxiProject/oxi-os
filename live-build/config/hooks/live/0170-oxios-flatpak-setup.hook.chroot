@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+echo "Configuring Flatpak for OxiOS..."
+
+# Add Flathub remote system-wide
+flatpak remote-add --if-not-exists --system flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+
+# Enable automatic updates
+flatpak update --system --noninteractive 2>/dev/null || true
+
+echo "Flatpak configured successfully"

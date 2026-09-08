@@ -1,0 +1,80 @@
+#!/bin/bash
+set -e
+
+echo "Configuring GNOME Settings About page with OxiOS branding..."
+
+# Install OxiOS logo for gnome-control-center
+mkdir -p /usr/share/icons/hicolor/256x256/apps
+mkdir -p /usr/share/icons/hicolor/512x512/apps
+mkdir -p /usr/share/icons/hicolor/scalable/apps
+
+# Copy logo to various sizes for gnome-control-center
+if [ -f /usr/share/pixmaps/oxios-logo.png ]; then
+    if command -v convert >/dev/null 2>&1; then
+        convert /usr/share/pixmaps/oxios-logo.png -resize 256x256 /usr/share/icons/hicolor/256x256/apps/oxios.png 2>/dev/null || true
+        convert /usr/share/pixmaps/oxios-logo.png -resize 512x512 /usr/share/icons/hicolor/512x512/apps/oxios.png 2>/dev/null || true
+        cp /usr/share/pixmaps/oxios-logo.png /usr/share/icons/hicolor/scalable/apps/oxios.png 2>/dev/null || true
+    else
+        cp /usr/share/pixmaps/oxios-logo.png /usr/share/icons/hicolor/256x256/apps/oxios.png 2>/dev/null || true
+        cp /usr/share/pixmaps/oxios-logo.png /usr/share/icons/hicolor/512x512/apps/oxios.png 2>/dev/null || true
+        cp /usr/share/pixmaps/oxios-logo.png /usr/share/icons/hicolor/scalable/apps/oxios.png 2>/dev/null || true
+    fi
+fi
+
+# Create gnome-control-center branding override
+mkdir -p /usr/share/glib-2.0/schemas
+
+cat > /usr/share/glib-2.0/schemas/99_oxios-branding.gschema.override <<'EOF'
+[org.gnome.desktop.interface]
+icon-theme='Adwaita'
+
+[org.gnome.shell]
+app-picker-layout=[{'oxios.desktop': <{'position': <0>}}]
+EOF
+
+# Compile schemas
+glib-compile-schemas /usr/share/glib-2.0/schemas/ 2>/dev/null || true
+
+# Create a custom about panel for gnome-control-center
+mkdir -p /usr/share/gnome-control-center/panels
+
+cat > /usr/share/gnome-control-center/panels/oxios-about.panel <<'EOF'
+[Panel]
+Name=About
+Category=system
+Icon=oxios
+Module=info-overview
+Keywords=About;Info;System;OxiOS;Version;Distribution;
+EOF
+
+# Update os-release with proper OxiOS branding for gnome-control-center
+cat > /etc/os-release <<'EOF'
+NAME="Oxi OS"
+VERSION="development (sid)"
+ID=oxios
+ID_LIKE=debian
+PRETTY_NAME="Oxi OS"
+VERSION_ID="development"
+HOME_URL="https://github.com/oxi-os/oxi-os"
+SUPPORT_URL="https://github.com/oxi-os/oxi-os/issues"
+BUG_REPORT_URL="https://github.com/oxi-os/oxi-os/issues"
+LOGO=oxios
+ANSI_COLOR="0;36"
+EOF
+
+# Update /usr/lib/os-release as well
+cat > /usr/lib/os-release <<'EOF'
+NAME="Oxi OS"
+VERSION="development (sid)"
+ID=oxios
+ID_LIKE=debian
+PRETTY_NAME="Oxi OS"
+VERSION_ID="development"
+HOME_URL="https://github.com/oxi-os/oxi-os"
+SUPPORT_URL="https://github.com/oxi-os/oxi-os/issues"
+BUG_REPORT_URL="https://github.com/oxi-os/oxi-os/issues"
+LOGO=oxios
+ANSI_COLOR="0;36"
+EOF
+
+echo "GNOME Settings About page configured with OxiOS branding"

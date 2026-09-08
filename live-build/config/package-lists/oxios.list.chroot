@@ -26,12 +26,8 @@ gnome-shell-extensions
 gnome-shell-extension-manager
 gnome-calendar
 gnome-contacts
-gnome-maps
-gnome-weather
 gnome-clocks
 gnome-music
-totem
-gnome-screenshot
 gnome-characters
 gnome-font-viewer
 gnome-logs
@@ -39,7 +35,6 @@ gnome-remote-desktop
 gnome-user-share
 gnome-bluetooth-3-common
 gnome-color-manager
-gnome-power-manager
 gnome-sound-recorder
 baobab
 file-roller
@@ -63,4 +58,3 @@ linux-headers-amd64
 firmware-linux
 firmware-linux-free
 firmware-linux-nonfree
-imagemagick

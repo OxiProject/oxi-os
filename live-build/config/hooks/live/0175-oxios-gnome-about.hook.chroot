@@ -1,0 +1,45 @@
+#!/bin/bash
+set -e
+
+echo "Configuring GNOME About branding..."
+
+# Create OxiOS branding for gnome-control-center
+mkdir -p /usr/share/gnome-control-center/ui
+
+# Create a custom about dialog logo
+cat > /usr/share/gnome-control-center/ui/oxios-about-dialog.ui <<'EOF'
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <object class="GtkAboutDialog" id="about_dialog">
+    <property name="program-name">Oxi OS</property>
+    <property name="version">development</property>
+    <property name="comments">A modern Linux distribution focused on simplicity, performance and reliability.</property>
+    <property name="copyright">© 2024 Oxi OS Contributors</property>
+    <property name="license-type">GPL-3.0-only</property>
+    <property name="website">https://github.com/oxi-os/oxi-os</property>
+    <property name="website-label">Oxi OS Website</property>
+    <property name="logo-icon-name">oxios</property>
+    <property name="wrap-license">True</property>
+  </object>
+</interface>
+EOF
+
+# Create desktop entry for About OxiOS
+cat > /usr/share/applications/oxios-about.desktop <<'EOF'
+[Desktop Entry]
+Type=Application
+Name=About Oxi OS
+Comment=Show information about Oxi OS
+Exec=gnome-control-center info-overview
+Icon=oxios
+Terminal=false
+Categories=System;
+NoDisplay=true
+EOF
+
+# Add OxiOS branding to gnome-initial-setup if present
+if [ -f /usr/share/gnome-initial-setup/gsd-branding.png ]; then
+    cp /usr/share/pixmaps/oxios-logo.png /usr/share/gnome-initial-setup/gsd-branding.png
+fi
+
+echo "GNOME About branding configured"

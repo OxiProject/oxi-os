@@ -14,6 +14,7 @@ if [ -f "$LOGO_SOURCE" ]; then
     fi
 fi
 
+# Create progress box and bar images
 if command -v convert >/dev/null 2>&1; then
     convert -size 300x20 xc:"#1a1a1a" -fill "#333333" -draw "rectangle 0,0 300,20" "$THEME_DIR/progress_box.png" 2>/dev/null || true
     convert -size 296x16 xc:"#18a999" "$THEME_DIR/progress_bar.png" 2>/dev/null || true
@@ -28,8 +29,74 @@ sklEQVR4nO3BMQEAAADCoPdPbQ43oAAAAAAAAAAAvz8LAAJoWwUQAAAABJRU5ErkJggg==
 EOF
 fi
 
-plymouth-set-default-theme -R oxios 2>/dev/null || true
+# Create Plymouth theme file
+cat > "$THEME_DIR/oxios.plymouth" <<'EOF'
+[Plymouth Theme]
+Name=OxiOS
+Description=OxiOS boot splash theme
+ModuleName=script
 
+[script]
+ImageDir=/usr/share/plymouth/themes/oxios
+ScriptFile=/usr/share/plymouth/themes/oxios/oxios.script
+EOF
+
+# Create Plymouth script with logo animation
+cat > "$THEME_DIR/oxios.script" <<'EOF'
+# OxiOS Plymouth Theme Script
+
+logo = Image("logo.png");
+progress_box = Image("progress_box.png");
+progress_bar = Image("progress_bar.png");
+
+window_width = Window.GetWidth();
+window_height = Window.GetHeight();
+
+# Center logo
+logo_x = (window_width - logo.GetWidth()) / 2;
+logo_y = (window_height - logo.GetHeight()) / 2 - 50;
+
+logo_sprite = Sprite();
+logo_sprite.SetImage(logo);
+logo_sprite.SetPosition(logo_x, logo_y, 1000);
+
+# Progress bar
+box_x = (window_width - progress_box.GetWidth()) / 2;
+box_y = logo_y + logo.GetHeight() + 40;
+
+progress_box_sprite = Sprite();
+progress_box_sprite.SetImage(progress_box);
+progress_box_sprite.SetPosition(box_x, box_y, 900);
+
+progress_bar_sprite = Sprite();
+progress_bar_sprite.SetImage(progress_bar);
+progress_bar_sprite.SetPosition(box_x + 2, box_y + 2, 950);
+
+progress_bar_sprite.SetOpacity(1.0);
+
+# Boot progress callback
+fun progress_callback(duration, progress) {
+    progress_bar_sprite.SetScale(progress, 1.0);
+}
+
+# Message callback
+fun message_callback(text) {
+    # Could add text display here
+}
+
+Plymouth.SetBootProgressFunction(progress_callback);
+Plymouth.SetMessageFunction(message_callback);
+
+# Add a subtle pulse animation to logo
+fun pulse_animation() {
+    logo_sprite.SetOpacity(0.7 + 0.3 * Math.Sin(Plymouth.GetTime() * 3));
+}
+
+Plymouth.SetUpdateFunction(pulse_animation);
+EOF
+
+# Set as default theme and update initramfs
+plymouth-set-default-theme -R oxios 2>/dev/null || true
 update-initramfs -u 2>/dev/null || true
 
 echo "OxiOS Plymouth theme configured"
