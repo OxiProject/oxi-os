@@ -58,3 +58,12 @@ linux-headers-amd64
 firmware-linux
 firmware-linux-free
 firmware-linux-nonfree
+firmware-intel-sound
+firmware-sof-signed
+firmware-iwlwifi
+firmware-realtek
+firmware-atheros
+firmware-brcm80211
+firmware-misc-nonfree
+amd64-microcode
+intel-microcode
