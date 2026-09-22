@@ -3,8 +3,9 @@ Type=Application
 Version=1.0
 Name=Install Oxi OS
 Comment=Install Oxi OS to disk
-Exec=pkexec /usr/bin/calamares
+Exec=pkexec env QT_QPA_PLATFORMTHEME=gtk2 /usr/bin/calamares
 Icon=oxios
 Terminal=false
 StartupNotify=true
 Categories=System;
+NoDisplay=false

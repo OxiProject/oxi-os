@@ -1,0 +1,12 @@
+NAME="Oxi OS"
+VERSION="development (sid)"
+ID=oxios
+ID_LIKE=debian
+PRETTY_NAME="Oxi OS"
+VERSION_ID="development"
+VERSION_CODENAME=sid
+HOME_URL="https://github.com/oxi-os/oxi-os"
+SUPPORT_URL="https://github.com/oxi-os/oxi-os/issues"
+BUG_REPORT_URL="https://github.com/oxi-os/oxi-os/issues"
+LOGO=oxios
+ANSI_COLOR="0;36"

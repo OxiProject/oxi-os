@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Oxi OS
+Description=Oxi OS responsive boot animation (logo centered, loading indicator below)
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/oxios
+ScriptFile=/usr/share/plymouth/themes/oxios/oxios.script

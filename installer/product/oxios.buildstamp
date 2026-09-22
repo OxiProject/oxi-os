@@ -1,0 +1,5 @@
+[Main]
+Product=Oxi OS
+Version=development
+BugURL=https://github.com/oxi-os/oxi-os/issues
+IsFinal=False

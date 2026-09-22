@@ -1,0 +1,6 @@
+[Oxi OS]
+product_name = Oxi OS
+product_version = development
+product_arch = x86_64
+product_bug_url = https://github.com/oxi-os/oxi-os/issues
+product_home = https://github.com/oxi-os/oxi-os

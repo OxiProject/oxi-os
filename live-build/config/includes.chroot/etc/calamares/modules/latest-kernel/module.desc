@@ -1,6 +1,0 @@
----
-name: latest-kernel
-description: "Install latest kernel from Debian Sid"
-module: latest-kernel
-required: true
-priority: high

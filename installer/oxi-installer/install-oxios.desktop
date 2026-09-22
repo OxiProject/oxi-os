@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Install Oxi OS
+Comment=Install Oxi OS to disk (XFS root)
+Exec=pkexec /usr/bin/oxi-installer
+Icon=oxios
+Terminal=false
+Categories=System;

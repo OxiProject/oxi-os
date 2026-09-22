@@ -1,0 +1,166 @@
+# Oxi OS Plymouth boot theme
+#
+# Responsive script theme: the Oxi OS logo is scaled proportionally to the
+# display size and centered in the upper half of the screen, while the
+# loading indicator (spinner + progress bar) sits in the lower half.
+# Works on any resolution from 640x480 up to 4K and beyond.
+
+Window.SetBackgroundTopColor (0, 0, 0);
+Window.SetBackgroundBottomColor (0, 0, 0);
+
+# ---------------------------------------------------------------------------
+# Screen geometry (multi-monitor safe, same approach as Debian's own themes)
+# ---------------------------------------------------------------------------
+window_max.width = Window.GetX () * 2 + Window.GetWidth ();
+window_max.height = Window.GetY () * 2 + Window.GetHeight ();
+small_dimension = Math.Min (window_max.width, window_max.height);
+
+# ---------------------------------------------------------------------------
+# Logo: scale to 30% of the smallest screen dimension, centered horizontally
+# and centered at 36% of the screen height (upper area).
+# ---------------------------------------------------------------------------
+LOGO_SIZE_PCT   = 0.30;
+LOGO_CENTER_X_PCT = 0.5;
+LOGO_CENTER_Y_PCT = 0.36;
+
+logo_raw = Image ("logo.png");
+logo_size = small_dimension * LOGO_SIZE_PCT;
+logo_scale = logo_size / logo_raw.GetWidth ();
+logo = logo_raw.Scale (logo_size, logo_raw.GetHeight () * logo_scale);
+
+logo_center.x = window_max.width * LOGO_CENTER_X_PCT;
+logo_center.y = window_max.height * LOGO_CENTER_Y_PCT;
+logo.x = logo_center.x - logo.GetWidth () / 2;
+logo.y = logo_center.y - logo.GetHeight () / 2;
+
+logo_sprite = Sprite ();
+logo_sprite.SetImage (logo);
+logo_sprite.SetPosition (logo.x, logo.y, 100);
+
+# ---------------------------------------------------------------------------
+# Loading indicator: a 12-dot spinner below the logo plus a thin progress
+# bar near the bottom of the screen. Both scale with the display.
+# ---------------------------------------------------------------------------
+SPINNER_DOTS = 12;
+spinner_radius = small_dimension * 0.055;
+spinner_center.x = window_max.width / 2;
+spinner_center.y = logo.y + logo.GetHeight () + small_dimension * 0.07;
+
+# Keep the spinner on screen for very short displays.
+spinner_max.y = window_max.height * 0.72;
+if (spinner_center.y > spinner_max.y)
+    spinner_center.y = spinner_max.y;
+
+dot_raw = Image ("dot.png");
+dot_size = small_dimension * 0.018;
+if (dot_size < 8)
+    dot_size = 8;
+if (dot_size > 28)
+    dot_size = 28;
+dot_image = dot_raw.Scale (dot_size, dot_size);
+
+for (i = 0; i < SPINNER_DOTS; i++) {
+    angle = 2 * Math.Pi * i / SPINNER_DOTS - Math.Pi / 2;
+    dot.x = spinner_center.x + spinner_radius * Math.Cos (angle) - dot_size / 2;
+    dot.y = spinner_center.y + spinner_radius * Math.Sin (angle) - dot_size / 2;
+    dot_sprite[i] = Sprite ();
+    dot_sprite[i].SetImage (dot_image);
+    dot_sprite[i].SetPosition (dot.x, dot.y, 200);
+    dot_sprite[i].SetOpacity (0.15);
+}
+
+# Progress bar: track + fill, width scales with screen, pinned near bottom.
+bar.width = window_max.width * 0.36;
+if (bar.width < 200)
+    bar.width = 200;
+if (bar.width > 480)
+    bar.width = 480;
+
+track_raw = Image ("track.png");
+bar.height = track_raw.GetHeight () * (bar.width / track_raw.GetWidth ());
+track = track_raw.Scale (bar.width, bar.height);
+fill_raw = Image ("fill.png");
+fill_full = fill_raw.Scale (bar.width, bar.height);
+
+bar.x = (window_max.width - bar.width) / 2;
+bar.y = window_max.height * 0.86;
+
+track_sprite = Sprite ();
+track_sprite.SetImage (track);
+track_sprite.SetPosition (bar.x, bar.y, 200);
+track_sprite.SetOpacity (0.9);
+
+fill_sprite = Sprite ();
+fill_sprite.SetImage (fill_full);
+fill_sprite.SetPosition (bar.x, bar.y, 201);
+fill_sprite.SetOpacity (0);
+
+# ---------------------------------------------------------------------------
+# Animation state
+# ---------------------------------------------------------------------------
+spinner_frame = 0;
+boot_progress = 0;
+
+fun spinner_step () {
+    global.spinner_frame = spinner_frame + 1;
+    for (i = 0; i < SPINNER_DOTS; i++) {
+        phase = Math.Int (spinner_frame + i * 2) % SPINNER_DOTS;
+        opacity = 1 - (phase / SPINNER_DOTS) * 0.9;
+        dot_sprite[i].SetOpacity (opacity);
+    }
+}
+
+fun spinner_hide () {
+    for (i = 0; i < SPINNER_DOTS; i++)
+        dot_sprite[i].SetOpacity (0);
+    track_sprite.SetOpacity (0);
+    fill_sprite.SetOpacity (0);
+}
+
+fun progress_draw (progress) {
+    if (progress < 0)
+        progress = 0;
+    if (progress > 1)
+        progress = 1;
+    global.boot_progress = progress;
+    if (progress <= 0) {
+        fill_sprite.SetOpacity (0);
+        return;
+    }
+    fill_w = Math.Int (bar.width * progress);
+    if (fill_w < 1)
+        fill_w = 1;
+    if (fill_w > bar.width)
+        fill_w = Math.Int (bar.width);
+    fill_sprite.SetImage (fill_full.Crop (0, 0, fill_w, Math.Int (bar.height)));
+    fill_sprite.SetOpacity (1);
+}
+
+# ---------------------------------------------------------------------------
+# Plymouth callbacks
+# ---------------------------------------------------------------------------
+fun refresh_callback () {
+    spinner_step ();
+}
+
+fun progress_callback (duration, progress) {
+    if (Plymouth.GetMode () == "boot")
+        progress_draw (progress);
+}
+
+fun message_callback (text) {
+}
+
+fun quit_callback () {
+    spinner_hide ();
+    logo_sprite.SetOpacity (0);
+}
+
+fun display_normal_callback () {
+}
+
+Plymouth.SetRefreshFunction (refresh_callback);
+Plymouth.SetBootProgressFunction (progress_callback);
+Plymouth.SetMessageFunction (message_callback);
+Plymouth.SetDisplayNormalFunction (display_normal_callback);
+Plymouth.SetQuitFunction (quit_callback);

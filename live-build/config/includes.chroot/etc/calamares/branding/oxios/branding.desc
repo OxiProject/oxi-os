@@ -1,25 +1,47 @@
+# SPDX-FileCopyrightText: no
+# SPDX-License-Identifier: CC0-1.0
+#
+# Oxi OS Calamares Branding Configuration
 ---
 componentName: oxios
+
+welcomeStyleCalamares: false
+welcomeExpandingLogo: true
+
+windowExpanding: normal
+windowSize: 800px,520px
+windowPlacement: center
+
+sidebar: widget
+navigation: widget
+
 strings:
-  productName: Oxi OS
-  shortProductName: Oxi OS
-  version: development
-  shortVersion: dev
-  versionedName: Oxi OS
-  shortVersionedName: Oxi OS
-  bootloaderEntryName: Oxi OS
-  productUrl: https://github.com/oxi-os/oxi-os
-  supportUrl: https://github.com/oxi-os/oxi-os
-  knownIssuesUrl: https://github.com/oxi-os/oxi-os/issues
-  releaseNotesUrl: https://github.com/oxi-os/oxi-os
+    productName: Oxi OS
+    shortProductName: Oxi OS
+    version: development
+    shortVersion: dev
+    versionedName: Oxi OS
+    shortVersionedName: Oxi OS
+    bootloaderEntryName: Oxi OS
+    productUrl: https://github.com/oxi-os/oxi-os
+    supportUrl: https://github.com/oxi-os/oxi-os
+    knownIssuesUrl: https://github.com/oxi-os/oxi-os/issues
+    releaseNotesUrl: https://github.com/oxi-os/oxi-os
+    donateUrl: https://github.com/oxi-os/oxi-os
+
 images:
-  productLogo: logo.png
-  productIcon: logo.png
-  productWelcome: logo.png
-  productInstaller: logo.png
+    productIcon: logo.png
+    productLogo: logo.png
+    productWelcome: logo.png
+
 style:
-  sidebarBackground: "#000000"
-  sidebarText: "#ffffff"
-  sidebarTextSelect: "#ffffff"
-  sidebarTextHighlight: "#18a999"
-  sidebarSelect: "#18a999"
+    SidebarBackground: "#000000"
+    SidebarText: "#ffffff"
+    SidebarTextCurrent: "#ffffff"
+    SidebarBackgroundCurrent: "#18a999"
+
+slideshow: "show.qml"
+slideshowAPI: 2
+
+uploadServer:
+    type: "none"

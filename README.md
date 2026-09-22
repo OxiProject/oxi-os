@@ -168,3 +168,41 @@ OxiOS is released under the **GPL-3.0 License**.
 <p align="center">
 Made with ❤️ for the open source community
 </p>
+
+## Oxi OS Anaconda-Style Installer
+
+A custom installer built from scratch for Oxi OS (Debian Sid base):
+
+- **XFS-only root** — GPT + 512 MiB EFI + XFS `/` (no ext4 option)
+- **Responsive Plymouth boot** — Logo top (30% of screen), 12-dot spinner + progress bar below
+- **Responsive GRUB theme** — Percent-based layout, single DejaVu font
+- **GNOME Settings → About** — `LOGO=oxios` with full hicolor icon set
+- **Python/GTK4 GUI** — Anaconda-style hub (disk, encryption, timezone, user, progress)
+
+### Quick Start
+
+```bash
+# Build ISO (requires root, live-build, debootstrap, etc.)
+sudo ./installer/scripts/build-iso.sh
+
+# Run tests
+cd installer && python3 -m unittest discover -s tests -v
+
+# Syntax checks
+bash -n installer/scripts/build-iso.sh installer/hooks/*.sh installer/kickstart/oxios-xfs.ks
+python3 -m py_compile installer/oxi-installer/oxi_install/*.py
+```
+
+### Installer Structure
+
+```
+installer/
+├── branding/           # Plymouth, GRUB, icons, os-release
+├── hooks/              # live-build chroot hooks
+├── kickstart/          # Anaconda kickstart (oxios-xfs.ks)
+├── oxi-installer/      # Python/GTK4 GUI (oxi_install package)
+├── product/            # Product definition & package manifest
+└── scripts/            # ISO build script (build-iso.sh)
+```
+
+See `docs/anaconda-installer.md` for full technical documentation.

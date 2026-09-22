@@ -1,0 +1,55 @@
+# Oxi OS GRUB theme — responsive percent-based layout on 1920x1080 canvas.
+# background.png renders the logo centered; widgets use relative geometry
+# so the menu stays usable from 800x600 up to 4K.
+#
+# Font note: the only font shipped is unicode.pf2 ("DejaVu Sans Regular 16"),
+# so every widget must reference "unicode" — any other family name would
+# silently fall back and break the layout metrics.
+title-text: "Oxi OS"
+title-font: "unicode"
+title-color: "#ffffff"
+
+desktop-image: "background.png"
+desktop-color: "#000000"
+terminal-font: "unicode"
+
++ boot_menu {
+    left = 20%
+    top = 30%
+    width = 60%
+    height = 45%
+    item_font = "unicode"
+    item_color = "#ffffff"
+    selected_item_color = "#18a999"
+    item_height = 32
+    item_padding = 12
+    item_spacing = 8
+    icon_width = 32
+    icon_height = 32
+    item_icon_space = 12
+    scrollbar = true
+}
+
++ label {
+    top = 82%
+    left = 40%
+    width = 20%
+    align = "center"
+    text = "Oxi OS"
+    color = "#ffffff"
+    font = "unicode"
+}
+
++ progress_bar {
+    id = "__timeout__"
+    left = 20%
+    width = 60%
+    top = 88%
+    height = 12
+    fg_color = "#18a999"
+    bg_color = "#2a2a2a"
+    border_color = "#000000"
+    text = "@TIMEOUT_NOTIFICATION_LONG@"
+    font = "unicode"
+    text_color = "#888888"
+}
